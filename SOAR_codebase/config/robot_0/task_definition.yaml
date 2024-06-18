@@ -1,0 +1,13 @@
+---
+# task definition config params
+object_list:
+  - "chicken leg"
+  - "green pea pod"
+  - "red bottle"
+task_list:
+  - "move the chicken leg to the left side"
+  - "move the chicken leg to the right side"
+  - "move the green pea pod to the left side"
+  - "move the green pea pod to the right side"
+  - "move the red bottle to the left side"
+  - "move the red bottle to the right side"

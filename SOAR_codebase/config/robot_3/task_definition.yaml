@@ -1,0 +1,14 @@
+---
+# task definition config params
+object_list:
+  - "blue tray"
+  - "yellow block"
+  - "white object"
+  - "green object"
+task_list:
+  - "put the yellow block in the blue tray"
+  - "remove the yellow block from inside the blue tray and put it on the table"
+  - "put the white object in the blue tray"
+  - "remove the white object from inside the blue tray and put it on the table"
+  - "put the green object in the blue tray"
+  - "remove the green object from inside the blue tray and put it on the table"

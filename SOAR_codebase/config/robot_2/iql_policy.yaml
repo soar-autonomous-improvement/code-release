@@ -1,0 +1,101 @@
+---
+# Config parameters of low-level goal conditioned policy
+policy_class: "gc_iql"
+checkpoint_path: "checkpoints/iterated_offline_rl/iql_just_bridge_not_shared_encoder_840000/"
+mini_dataset_path: "mini_dataset"
+image_size: 256
+rollout_timesteps: 30
+exploration:
+  make_traj_deterministic_prob: 1.0
+  exploration_off_prob: 1.0
+  exploration_noise_low: 0.3
+  exploration_noise_high: 1.0
+  gripper_open_prob: 0.02
+  gripper_close_prob: 0.02
+  std_devs:
+    x: 0.01
+    y: 0.01
+    z: 0.01
+    roll: 0.16
+dataset_kwargs:
+  shuffle_buffer_size: 25000
+  augment: true
+  augment_next_obs_goal_differently: false
+  augment_kwargs:
+    random_resized_crop:
+      scale:
+        - 0.8
+        - 1.0
+      ratio:
+        - 0.9
+        - 1.1
+    random_brightness:
+      - 0.2
+    random_contrast:
+      - 0.8
+      - 1.2
+    random_saturation:
+      - 0.8
+      - 1.2
+    random_hue:
+      - 0.1
+    augment_order:
+      - "random_resized_crop"
+      - "random_brightness"
+      - "random_contrast"
+      - "random_saturation"
+      - "random_hue"
+  goal_relabeling_strategy: "geometric"
+  goal_relabeling_kwargs:
+    reached_proportion: 0.25
+    discount: 0.98
+  normalization_type: "normal"
+  dataset_contains_commanded_goals: false
+ACT_MEAN:
+  - 1.9296819e-04
+  - 1.3667766e-04
+  - -1.4583133e-04
+  - -1.8390431e-04
+  - -3.0808983e-04
+  - 2.7425270e-04
+  - 5.9716219e-01
+ACT_STD:
+  - 0.00912848
+  - 0.0127196
+  - 0.01229497
+  - 0.02606696
+  - 0.02875283
+  - 0.07807977
+  - 0.48710242
+agent_kwargs:
+  discount: 0.98
+  expectile: 0.7
+  temperature: 1
+  use_proprio: false
+  policy_kwargs:
+    tanh_squash_distribution: false
+    std_parameterization: "fixed"
+    fixed_std:
+      - 1
+      - 1
+      - 1
+      - 1
+      - 1
+      - 1
+      - 1
+  network_kwargs:
+    hidden_dims:
+      - 256
+      - 256
+      - 256
+    dropout_rate: 0.1
+  shared_encoder: false
+  early_goal_concat: true
+  negative_proportion: 0.1
+  shared_goal_encoder: true
+encoder:
+  type: "resnetv1-34-bridge"
+  config:
+    act: "swish"
+    add_spatial_coordinates: false
+    pooling_method: "avg"

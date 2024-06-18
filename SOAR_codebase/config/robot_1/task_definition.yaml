@@ -1,0 +1,11 @@
+---
+# task definition config params
+object_list:
+  - "blue object"
+  - "banana"
+  - "green plate"
+task_list:
+  - "put the blue object in the green plate"
+  - "remove the blue object from inside the green plate and put it on the table"
+  - "put the banana in the green plate"
+  - "remove the banana from inside the green plate and put it on the table"

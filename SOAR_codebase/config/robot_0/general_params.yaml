@@ -1,0 +1,60 @@
+---
+# IP address and port of the robot
+ip: "128.32.175.236"
+port: 5556
+
+# IP address of web viewer
+web_viewer_ip: "128.32.175.81"
+web_viewer_port: 5000
+
+# Robot ID
+robot_id: 0
+
+# General config parameters
+sticky_gripper_num_steps: 1 # I'm thinking that for online improvement, we should turn off sticky gripper
+env_params:
+  camera_topics:
+    - name: "/blue/image_raw"
+      flip: false
+  override_workspace_boundaries:
+    - - -20.0
+      - -20.0
+      - -20.0
+      - -1.57
+      - 0
+    - - 20.0
+      - 20.0
+      - 20.0
+      - 1.57
+      - 0
+  move_duration: 0.3
+video_save_path: ""
+shoulder_camera_image_size: 256 # size of image returned by shoulder cam
+initial_eep:
+  - 0.3
+  - 0.0
+  - 0.15
+  - 0
+  - 0
+  - 0
+  - 1
+# manual_workspace_bounds:  # datacol2 table height 29 
+#   x:
+#     - 0.17827454
+#     - 0.42494287
+#   y:
+#     - -0.22023482
+#     - 0.18838036
+#   z:
+#     - 0.02200321
+#     - 0.23297783
+manual_workspace_bounds:  # table height 29 with barrier (left side on right of red sticker)
+  x:
+    - 0.19898649
+    - 0.41199488
+  y:
+    - -0.17641689
+    - 0.17883288
+  z:
+    - 0.0189986
+    - 0.18269369

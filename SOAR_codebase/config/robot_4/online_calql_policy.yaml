@@ -1,0 +1,159 @@
+---
+# Config parameters of low-level goal conditioned policy
+policy_class: "calql"
+checkpoint_path: "checkpoints/online-calql/checkpoint_0"
+mini_dataset_path: "mini_dataset"
+image_size: 256
+rollout_timesteps: 20
+exploration:
+  exploration_off_prob: 0.7
+  exploration_noise_low: 0.3
+  exploration_noise_high: 1.0
+  gripper_open_prob: 0.02
+  gripper_close_prob: 0.02
+  std_devs:
+    x: 0.01
+    y: 0.01
+    z: 0.01
+    roll: 0.16
+dataset_kwargs:
+  shuffle_buffer_size: 25000
+  augment: true
+  augment_next_obs_goal_differently: false
+  augment_kwargs:
+    random_resized_crop:
+      scale:
+        - 0.8
+        - 1.0
+      ratio:
+        - 0.9
+        - 1.1
+    random_brightness:
+      - 0.2
+    random_contrast:
+      - 0.8
+      - 1.2
+    random_saturation:
+      - 0.8
+      - 1.2
+    random_hue:
+      - 0.1
+    augment_order:
+      - "random_resized_crop"
+      - "random_brightness"
+      - "random_contrast"
+      - "random_saturation"
+      - "random_hue"
+  goal_relabeling_strategy: "geometric"
+  goal_relabeling_kwargs:
+    reached_proportion: 0.25
+    commanded_goal_proportion: -1.0
+    discount: 0.98
+  normalization_type: "tanh"
+  dataset_contains_commanded_goals: false
+ACT_MEAN:
+  - 1.9296819e-04
+  - 1.3667766e-04
+  - -1.4583133e-04
+  - -1.8390431e-04
+  - -3.0808983e-04
+  - 2.7425270e-04
+  - 5.9716219e-01
+ACT_STD:
+  - 0.00912848
+  - 0.0127196
+  - 0.01229497
+  - 0.02606696
+  - 0.02875283
+  - 0.07807977
+  - 0.48710242
+ACT_MIN:
+  - -0.0437546
+  - -0.052831028
+  - -0.035931006
+  - -0.14489305
+  - -0.15591072
+  - -0.26039174
+  - -0.780331
+ACT_MAX:
+  - 0.04158026
+  - 0.05223833
+  - 0.05382493
+  - 0.15559858
+  - 0.142592
+  - 0.25956747
+  - 0.79311615
+agent_kwargs:
+  discount: 0.98
+  backup_entropy: false
+  target_entropy: 0.0
+  soft_target_update_rate: 0.005
+  critic_ensemble_size: 10
+  critic_subsample_size: 2
+  autotune_entropy: true
+  temperature_init: 1.0
+  actor_optimizer_kwargs:
+    learning_rate: 0.0003
+    warmup_steps: 0
+    clip_grad_norm: 1
+  critic_optimizer_kwargs:
+    learning_rate: 0.0003
+    warmup_steps: 0
+    clip_grad_norm: 1
+  temperature_optimizer_kwargs:
+    learning_rate: 0.0003
+    clip_grad_norm: 1
+  cql_n_actions: 4
+  cql_action_sample_method: "uniform"
+  cql_max_target_backup: true
+  cql_importance_sample: true
+  cql_autotune_alpha: false
+  cql_alpha_lagrange_init: 1.0
+  cql_alpha_lagrange_otpimizer_kwargs:
+    learning_rate: 0.0003
+  cql_target_action_gap: 1.0
+  cql_temp: 1.0
+  cql_alpha: 1.0
+  cql_clip_diff_min: -.inf
+  cql_clip_diff_max: .inf
+  use_td_loss: true
+  use_calql: true
+  goal_conditioned: true
+  gc_kwargs:
+    negative_proportion: 0.3
+  policy_kwargs:
+    tanh_squash_distribution: true
+    std_parameterization: "exp"
+  critic_network_type: "ptr_critic"
+  stop_actor_encoder_gradient: True
+  stop_critic_encoder_gradient: False
+  critic_network_kwargs:
+    hidden_dims:
+      - 256
+      - 256
+      - 256
+      - 256
+    activate_final: true
+    use_layer_norm: false
+    use_group_norm: false
+  policy_network_kwargs:
+    hidden_dims:
+      - 256
+      - 256
+      - 256
+      - 256
+    activate_final: true
+    use_layer_norm: false
+    use_group_norm: false
+  early_goal_concat: true
+  shared_goal_encoder: true
+  use_proprio: false
+  shared_encoder: false
+  #critic_ensemble_size: 10
+  #critic_subsample_size: 2
+encoder:
+  type: "resnetv1-34-bridge"
+  config:
+    act: "swish"
+    add_spatial_coordinates: true
+    pooling_method: "avg"

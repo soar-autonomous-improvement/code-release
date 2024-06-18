@@ -1,0 +1,5 @@
+---
+# Config parameters for local checkpoint updating
+src_checkpoint_root_folder: ""
+dest_checkpoint_path: "checkpoints/online-calql"
+wait_time: 5 # minutes
